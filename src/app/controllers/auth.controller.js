@@ -1,7 +1,7 @@
 const randToken = require('rand-token');
 const bcrypt = require('bcrypt');
 
-const userModel = require('../models/user.model');
+const userModel = require('../models/UserModels/user.model');
 const authMethod = require('../methods/auth.method');
 
 const jwtVariable = require('../../../variables/jwt.variable');
@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
     const username = req.body.username.toLowerCase();
     const password = req.body.password;
 
-    const user = await userModel.findOne({username: username})
+    const user = await userModel.findOne({username: username}).lean()
 
     if (!user) {
         return res.status(401).send('Username does not exist.');

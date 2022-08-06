@@ -1,8 +1,8 @@
-const jwtVariable = require('../../variables/jwt');
+const jwtVariable = require('../../../variables/jwt.variable');
 
-const userModle = require('../users/users.models');
+const userModle = require('../models/UserModels/user.model');
 
-const authMethod = require('./auth.methods');
+const authMethod = require('../methods/auth.method');
 
 exports.isAuth = async (req, res, next) => {
 	// Lấy access token từ header
@@ -24,7 +24,7 @@ exports.isAuth = async (req, res, next) => {
 			.send('Bạn không có quyền truy cập vào tính năng này!');
 	}
 
-	const user = await userModle.getUser(verified.payload.username);
+	const user = await userModle.findOne({username:verified.payload.username});
 	req.user = user;
 
 	return next();
