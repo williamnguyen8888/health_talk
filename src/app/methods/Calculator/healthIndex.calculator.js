@@ -1,4 +1,4 @@
-const constants = require('../../constants')
+const constants = require('../../../constants')
 exports.bmi_calculator = (weight, height) => {
     // chỉ số bmi là chi so beo phi
     const heightM = height / 100

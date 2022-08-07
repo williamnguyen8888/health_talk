@@ -1,6 +1,6 @@
 const userModel = require("../../models/UserModels/user.model")
-const healthIndex = require("../../models/UserModels/healthIndex.model")
-const indexCalculator = require("../../methods/userIndexCalculator.method")
+const healthIndex = require("../../models/CalculatorModel/healthIndex.model")
+const indexCalculator = require("../../methods/Calculator/healthIndex.calculator")
 
 class UserController {
     userInfo(req, res, next) {
@@ -26,6 +26,7 @@ class UserController {
         const protein_calories = await indexCalculator.protein_value_calories(req.body.weight_target)
         const fat_calories = await indexCalculator.fat_value_calories(calories_in)
         const carb_in = await indexCalculator.carb_value_gram(calories_in, protein_calories, fat_calories)
+
         const newHealthIndex = new healthIndex({
             userId: req.body.userId,
             age: req.body.age,

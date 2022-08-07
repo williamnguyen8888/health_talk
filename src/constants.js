@@ -4,12 +4,14 @@ module.exports = Object.freeze({
 
     //weight_target
     Weight_gain: 'up',
-    Weight_loss:'down',
+    Weight_loss: 'down',
     Keep_weight: 'keep',
     calories_tdee_target: 500,
 
     //loaded fat percent
     Fat_percent: 0.25,
-
+    //roles
+    admin_role: "admin",
+    user_role: "user",
 
 });

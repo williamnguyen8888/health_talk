@@ -1,6 +1,6 @@
 const siteRouter = require("./site.router")
-const authenRouter = require("./authRoutes/auth.routes")
-const userRouter = require('./userRoutes/user.routes')
+const authenRouter = require("./AuthRoutes/auth.routes")
+const userRouter = require('./UserRoutes/user.routes')
 function route(app) {
     app.use('/auth', authenRouter)
     app.use('/user', userRouter)

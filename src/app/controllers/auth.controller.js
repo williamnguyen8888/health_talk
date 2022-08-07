@@ -6,6 +6,7 @@ const authMethod = require('../methods/auth.method');
 
 const jwtVariable = require('../../../variables/jwt.variable');
 const {SALT_ROUNDS} = require('../../../variables/auth.variable');
+const constants = require("../../constants");
 
 exports.register = (req, res) => {
     const username = req.body.username.toLowerCase();
@@ -15,7 +16,9 @@ exports.register = (req, res) => {
         } else {
             const hashPassword = bcrypt.hashSync(req.body.password, SALT_ROUNDS);
             const newUser = new userModel({
-                username: username, password: hashPassword,
+                username: username,
+                password: hashPassword,
+                role: constants.user_role,
             });
             const createUser = await newUser.save();
             if (!createUser) {
@@ -48,6 +51,7 @@ exports.login = async (req, res) => {
     const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
     const dataForAccessToken = {
+        role: user.role,
         username: user.username,
     };
     const accessToken = await authMethod.generateToken(dataForAccessToken, accessTokenSecret, accessTokenLife,);
@@ -99,7 +103,7 @@ exports.refreshToken = async (req, res) => {
     }
 
     const username = decoded.payload.username; // Lấy username từ payload
-
+    const roleUser = decoded.payload.role // lay role tu payload
     const user = await userModel.findOne({username: username});
     if (!user) {
         return res.status(401).send('User does not exist.');
@@ -111,6 +115,7 @@ exports.refreshToken = async (req, res) => {
 
     // Tạo access token mới
     const dataForAccessToken = {
+        roleUser,
         username,
     };
 
