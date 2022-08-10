@@ -13,5 +13,8 @@ module.exports = Object.freeze({
     //roles
     admin_role: "admin",
     user_role: "user",
+    //Lang
+    language_en: "en",
+    language_vi: "vi",
 
 });
